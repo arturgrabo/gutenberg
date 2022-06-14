@@ -148,6 +148,9 @@ class WP_Style_Engine {
 					'individual' => 'padding-%s',
 				),
 				'path'          => array( 'spacing', 'padding' ),
+				'css_vars'   => array(
+					'space' => '--wp--preset--spacing-size--$slug',
+				),
 			),
 			'margin'  => array(
 				'property_keys' => array(
@@ -155,6 +158,9 @@ class WP_Style_Engine {
 					'individual' => 'margin-%s',
 				),
 				'path'          => array( 'spacing', 'margin' ),
+				'css_vars'   => array(
+					'space' => '--wp--preset--spacing-size--$slug',
+				),
 			),
 		),
 		'typography' => array(
@@ -345,6 +351,21 @@ class WP_Style_Engine {
 		// for styles such as margins and padding.
 		if ( is_array( $style_value ) ) {
 			foreach ( $style_value as $key => $value ) {
+				if ( is_string( $value ) && strpos( $value, 'var:' ) !== false ) {
+					if ( $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
+						foreach ( $style_definition['css_vars'] as $property_key => $css_var_pattern ) {
+							$slug = static::get_slug_from_preset_value( $value, $property_key );
+							if ( $slug ) {
+								$css_var = strtr(
+									$css_var_pattern,
+									array( '$slug' => $slug )
+								);
+
+								$value = "var($css_var)";
+							}
+						}
+					}
+				}
 				$individual_property           = sprintf( $style_properties['individual'], _wp_to_kebab_case( $key ) );
 				$rules[ $individual_property ] = $value;
 			}
