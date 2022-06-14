@@ -71,6 +71,7 @@ export function MediaPlaceholder( {
 	onSelect,
 	onCancel,
 	onSelectURL,
+	onToggleFeaturedImage,
 	onDoubleClick,
 	onFilesPreUpload = noop,
 	onHTMLDrop = noop,
@@ -307,6 +308,22 @@ export function MediaPlaceholder( {
 		);
 	};
 
+	const renderFeaturedImageToggle = () => {
+		return (
+			onToggleFeaturedImage && (
+				<div className="block-editor-media-placeholder__url-input-container">
+					<Button
+						className="block-editor-media-placeholder__button"
+						onClick={ onToggleFeaturedImage }
+						variant="tertiary"
+					>
+						{ __( 'Use featured image' ) }
+					</Button>
+				</div>
+			)
+		);
+	};
+
 	const renderMediaUploadChecked = () => {
 		const defaultButton = ( { open } ) => {
 			return (
@@ -360,6 +377,7 @@ export function MediaPlaceholder( {
 									</Button>
 									{ uploadMediaLibraryButton }
 									{ renderUrlSelectionUI() }
+									{ renderFeaturedImageToggle() }
 									{ renderCancelLink() }
 								</>
 							);
@@ -388,6 +406,7 @@ export function MediaPlaceholder( {
 					</FormFileUpload>
 					{ uploadMediaLibraryButton }
 					{ renderUrlSelectionUI() }
+					{ renderFeaturedImageToggle() }
 					{ renderCancelLink() }
 				</>
 			);
