@@ -253,6 +253,28 @@ class WP_Style_Engine {
 	}
 
 	/**
+	 * Extracts the slug in kebab case from a preset string, e.g., "heavenly-blue" from 'var:preset|color|heavenlyBlue'.
+	 *
+	 * @param string $style_value  A single css preset value.
+	 * @param string  $property_key The CSS property that is the second element of the preset string. Used for matching.
+	 *
+	 * @return string|null The slug, or null if not found.
+	 */
+	protected static function get_css_var_value( $css_var_pattern, $style_value, $property_key ) {
+		if ( strpos( $style_value, 'var:' ) === false ) {
+			return $style_value;
+		}
+		$slug = static::get_slug_from_preset_value( $style_value, $property_key );
+		if ( $slug ) {
+			$var = strtr(
+				$css_var_pattern,
+				array( '$slug' => $slug )
+			);
+			return "var($var)";
+		}
+		return null;
+	}
+	/**
 	 * Checks whether an incoming style value is valid.
 	 *
 	 * @param string? $style_value  A single css preset value.
@@ -333,13 +355,9 @@ class WP_Style_Engine {
 		if ( is_string( $style_value ) && strpos( $style_value, 'var:' ) !== false ) {
 			if ( $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
 				foreach ( $style_definition['css_vars'] as $css_var_pattern => $property_key ) {
-					$slug = static::get_slug_from_preset_value( $style_value, $property_key );
-					if ( $slug ) {
-						$css_var                               = strtr(
-							$css_var_pattern,
-							array( '$slug' => $slug )
-						);
-						$rules[ $style_properties['default'] ] = "var($css_var)";
+					$css_var = static::get_css_var_value( $css_var_pattern, $style_value, $property_key );
+					if ( $css_var ) {
+						$rules[ $style_properties['default'] ] = $css_var;
 					}
 				}
 			}
@@ -354,14 +372,9 @@ class WP_Style_Engine {
 				if ( is_string( $value ) && strpos( $value, 'var:' ) !== false ) {
 					if ( $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
 						foreach ( $style_definition['css_vars'] as $property_key => $css_var_pattern ) {
-							$slug = static::get_slug_from_preset_value( $value, $property_key );
-							if ( $slug ) {
-								$css_var = strtr(
-									$css_var_pattern,
-									array( '$slug' => $slug )
-								);
-
-								$value = "var($css_var)";
+							$css_var = static::get_css_var_value( $css_var_pattern, $value, $property_key );
+							if ( $css_var ) {
+								$value = $css_var;
 							}
 						}
 					}
