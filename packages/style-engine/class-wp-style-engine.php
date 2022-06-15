@@ -368,13 +368,12 @@ class WP_Style_Engine {
 		if ( is_array( $style_value ) ) {
 			foreach ( $style_value as $key => $value ) {
 				if ( is_string( $value ) && strpos( $value, 'var:' ) !== false && $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
-					$css_var = static::get_css_var_value( $value, $style_definition['css_vars'] );
-					if ( $css_var ) {
-						$value = $css_var;
-					}
+					$value = static::get_css_var_value( $value, $style_definition['css_vars'] );
 				}
-				$individual_property           = sprintf( $style_properties['individual'], _wp_to_kebab_case( $key ) );
-				$rules[ $individual_property ] = $value;
+				$individual_property = sprintf( $style_properties['individual'], _wp_to_kebab_case( $key ) );
+				if ( $value ) {
+					$rules[ $individual_property ] = $value;
+				}
 			}
 		} else {
 			$rules[ $style_properties['default'] ] = $style_value;

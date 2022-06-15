@@ -246,6 +246,59 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 				),
 			),
 
+			'valid_spacing_single_preset_values'           => array(
+				'block_styles'    => array(
+					'spacing' => array(
+						'margin'  => 'var:preset|space|10',
+						'padding' => 'var:preset|space|20',
+					),
+				),
+				'options'         => array( 'css_vars' => true ),
+				'expected_output' => array(
+					'css' => 'padding: var(--wp--preset--spacing-size--20); margin: var(--wp--preset--spacing-size--10);',
+				),
+			),
+
+			'valid_spacing_multi_preset_values'           => array(
+				'block_styles'    => array(
+					'spacing' => array(
+						'margin'  => array(
+							'left'   => 'var:preset|space|10',
+							'right'  => 'var:preset|space|20',
+							'top'    => '1rem',
+							'bottom' => '1rem',
+						),
+						'padding' => array(
+							'left'   => 'var:preset|space|30',
+							'right'  => 'var:preset|space|40',
+							'top'    => '14px',
+							'bottom' => '14px',
+						),
+					),
+				),
+				'options'         => array( 'css_vars' => true ),
+				'expected_output' => array(
+					'css' => 'padding-left: var(--wp--preset--spacing-size--30); padding-right: var(--wp--preset--spacing-size--40); padding-top: 14px; padding-bottom: 14px; margin-left: var(--wp--preset--spacing-size--10); margin-right: var(--wp--preset--spacing-size--20); margin-top: 1rem; margin-bottom: 1rem;',
+				),
+			),
+
+			'invalid_spacing_multi_preset_values'           => array(
+				'block_styles'    => array(
+					'spacing' => array(
+						'margin'  => array(
+							'left'   => 'var:preset|spaceman|10',
+							'right'  => 'var:preset|spaceman|20',
+							'top'    => '1rem',
+							'bottom' => '1rem',
+						),
+					),
+				),
+				'options'         => array( 'css_vars' => true ),
+				'expected_output' => array(
+					'css' => 'margin-top: 1rem; margin-bottom: 1rem;',
+				),
+			),
+
 			'invalid_classnames_options'                   => array(
 				'block_styles'    => array(
 					'typography' => array(
