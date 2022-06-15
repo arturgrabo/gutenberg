@@ -51,7 +51,7 @@ class WP_Style_Engine {
 				),
 				'path'          => array( 'color', 'text' ),
 				'css_vars'      => array(
-					'--wp--preset--color--$slug' => 'color',
+					'color' => '--wp--preset--color--$slug',
 				),
 				'classnames'    => array(
 					'has-text-color'  => true,
@@ -261,7 +261,7 @@ class WP_Style_Engine {
 	 * @return string|null The css var, or null if no match for slug found.
 	 */
 	protected static function get_css_var_value( $style_value, $css_vars ) {
-		foreach ( $css_vars as $css_var_pattern => $property_key ) {
+		foreach ( $css_vars as  $property_key => $css_var_pattern ) {
 			$slug = static::get_slug_from_preset_value( $style_value, $property_key );
 			if ( $slug ) {
 				$var = strtr(
@@ -368,7 +368,7 @@ class WP_Style_Engine {
 		if ( is_array( $style_value ) ) {
 			foreach ( $style_value as $key => $value ) {
 				if ( is_string( $value ) && strpos( $value, 'var:' ) !== false && $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
-					$css_var = static::get_css_var_value( $value, array_flip( $style_definition['css_vars'] ) );
+					$css_var = static::get_css_var_value( $value, $style_definition['css_vars'] );
 					if ( $css_var ) {
 						$value = $css_var;
 					}
