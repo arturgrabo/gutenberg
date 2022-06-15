@@ -351,13 +351,14 @@ class WP_Style_Engine {
 
 		// Build CSS var values from var:? values, e.g, `var(--wp--css--rule-slug )`
 		// Check if the value is a CSS preset and there's a corresponding css_var pattern in the style definition.
-		if ( is_string( $style_value ) && strpos( $style_value, 'var:' ) !== false && $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
-			$css_var = static::get_css_var_value( $style_value, $style_definition['css_vars'] );
+		if ( is_string( $style_value ) && strpos( $style_value, 'var:' ) !== false ) {
+			if ( $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
+				$css_var = static::get_css_var_value( $style_value, $style_definition['css_vars'] );
 
-			if ( $css_var ) {
-				$rules[ $style_properties['default'] ] = $css_var;
+				if ( $css_var ) {
+					$rules[ $style_properties['default'] ] = $css_var;
+				}
 			}
-
 			return $rules;
 		}
 
@@ -367,7 +368,7 @@ class WP_Style_Engine {
 		if ( is_array( $style_value ) ) {
 			foreach ( $style_value as $key => $value ) {
 				if ( is_string( $value ) && strpos( $value, 'var:' ) !== false && $should_return_css_vars && ! empty( $style_definition['css_vars'] ) ) {
-					$css_var = static::get_css_var_value( $value, $style_definition['css_vars'] );
+					$css_var = static::get_css_var_value( $value, array_flip( $style_definition['css_vars'] ) );
 					if ( $css_var ) {
 						$value = $css_var;
 					}
