@@ -253,17 +253,15 @@ class WP_Style_Engine {
 	}
 
 	/**
-	 * Extracts the slug in kebab case from a preset string, e.g., "heavenly-blue" from 'var:preset|color|heavenlyBlue'.
+	 * Generates a css var string, eg var(--wp--preset--color--background) from a preset string, eg. `var:preset|space|50`.
 	 *
+	 * @param string $css_var_pattern  The css var pattern create the var string frm.
 	 * @param string $style_value  A single css preset value.
-	 * @param string  $property_key The CSS property that is the second element of the preset string. Used for matching.
+	 * @param string $property_key The CSS property that is the second element of the preset string. Used for matching.
 	 *
 	 * @return string|null The slug, or null if not found.
 	 */
 	protected static function get_css_var_value( $css_var_pattern, $style_value, $property_key ) {
-		if ( strpos( $style_value, 'var:' ) === false ) {
-			return $style_value;
-		}
 		$slug = static::get_slug_from_preset_value( $style_value, $property_key );
 		if ( $slug ) {
 			$var = strtr(
