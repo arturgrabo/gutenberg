@@ -249,8 +249,8 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 			'valid_spacing_single_preset_values'           => array(
 				'block_styles'    => array(
 					'spacing' => array(
-						'margin'  => 'var:preset|space|10',
-						'padding' => 'var:preset|space|20',
+						'margin'  => 'var:preset|spacing|10',
+						'padding' => 'var:preset|spacing|20',
 					),
 				),
 				'options'         => array( 'css_vars' => true ),
@@ -263,14 +263,14 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 				'block_styles'    => array(
 					'spacing' => array(
 						'margin'  => array(
-							'left'   => 'var:preset|space|10',
-							'right'  => 'var:preset|space|20',
+							'left'   => 'var:preset|spacing|10',
+							'right'  => 'var:preset|spacing|20',
 							'top'    => '1rem',
 							'bottom' => '1rem',
 						),
 						'padding' => array(
-							'left'   => 'var:preset|space|30',
-							'right'  => 'var:preset|space|40',
+							'left'   => 'var:preset|spacing|30',
+							'right'  => 'var:preset|spacing|40',
 							'top'    => '14px',
 							'bottom' => '14px',
 						),
