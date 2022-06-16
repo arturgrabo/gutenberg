@@ -200,6 +200,7 @@ function AudioEdit( {
 				{ ( ! RichText.isEmpty( caption ) || isSelected ) && (
 					<RichText
 						tagName="figcaption"
+						className="wp-element-caption"
 						aria-label={ __( 'Audio caption text' ) }
 						placeholder={ __( 'Add caption' ) }
 						value={ caption }

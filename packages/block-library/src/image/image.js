@@ -576,6 +576,7 @@ export default function Image( {
 			{ img }
 			{ ( ! RichText.isEmpty( caption ) || isSelected ) && (
 				<RichText
+					className="wp-element-caption"
 					ref={ captionRef }
 					tagName="figcaption"
 					aria-label={ __( 'Image caption text' ) }

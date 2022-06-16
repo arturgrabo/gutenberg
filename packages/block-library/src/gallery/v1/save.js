@@ -60,7 +60,7 @@ export default function saveV1( { attributes } ) {
 								{ ! RichText.isEmpty( image.caption ) && (
 									<RichText.Content
 										tagName="figcaption"
-										className="blocks-gallery-item__caption"
+										className="blocks-gallery-item__caption wp-element-caption"
 										value={ image.caption }
 									/>
 								) }
@@ -72,7 +72,7 @@ export default function saveV1( { attributes } ) {
 			{ ! RichText.isEmpty( caption ) && (
 				<RichText.Content
 					tagName="figcaption"
-					className="blocks-gallery-caption"
+					className="blocks-gallery-caption wp-element-caption"
 					value={ caption }
 				/>
 			) }

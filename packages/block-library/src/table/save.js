@@ -82,7 +82,11 @@ export default function save( { attributes } ) {
 				<Section type="foot" rows={ foot } />
 			</table>
 			{ hasCaption && (
-				<RichText.Content tagName="figcaption" value={ caption } />
+				<RichText.Content
+					tagName="figcaption"
+					value={ caption }
+					className="wp-element-caption"
+				/>
 			) }
 		</figure>
 	);

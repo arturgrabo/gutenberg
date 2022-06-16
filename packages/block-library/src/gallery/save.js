@@ -39,7 +39,7 @@ export default function saveWithInnerBlocks( { attributes } ) {
 			{ ! RichText.isEmpty( caption ) && (
 				<RichText.Content
 					tagName="figcaption"
-					className="blocks-gallery-caption"
+					className="blocks-gallery-caption wp-element-caption"
 					value={ caption }
 				/>
 			) }

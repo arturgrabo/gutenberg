@@ -82,7 +82,7 @@ export const Gallery = ( props ) => {
 				captionFocused={ captionFocused }
 				onFocusCaption={ onFocusCaption }
 				tagName="figcaption"
-				className="blocks-gallery-caption"
+				className="blocks-gallery-caption wp-element-caption"
 				aria-label={ __( 'Gallery caption text' ) }
 				placeholder={ __( 'Write gallery caption…' ) }
 				value={ caption }

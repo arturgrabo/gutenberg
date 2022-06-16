@@ -509,6 +509,7 @@ function TableEdit( {
 			{ ! isEmpty && (
 				<RichText
 					tagName="figcaption"
+					className="wp-element-caption"
 					aria-label={ __( 'Table caption text' ) }
 					placeholder={ __( 'Add caption' ) }
 					value={ caption }

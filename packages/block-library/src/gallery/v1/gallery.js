@@ -94,7 +94,7 @@ export const Gallery = ( props ) => {
 			<RichTextVisibilityHelper
 				isHidden={ ! isSelected && RichText.isEmpty( caption ) }
 				tagName="figcaption"
-				className="blocks-gallery-caption"
+				className="blocks-gallery-caption wp-element-caption"
 				aria-label={ __( 'Gallery caption text' ) }
 				placeholder={ __( 'Write gallery caption…' ) }
 				value={ caption }

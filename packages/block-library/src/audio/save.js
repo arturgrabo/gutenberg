@@ -17,7 +17,11 @@ export default function save( { attributes } ) {
 					preload={ preload }
 				/>
 				{ ! RichText.isEmpty( caption ) && (
-					<RichText.Content tagName="figcaption" value={ caption } />
+					<RichText.Content
+						tagName="figcaption"
+						value={ caption }
+						className="wp-element-caption"
+					/>
 				) }
 			</figure>
 		)

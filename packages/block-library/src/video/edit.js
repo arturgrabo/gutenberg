@@ -266,6 +266,7 @@ function VideoEdit( {
 				{ ( ! RichText.isEmpty( caption ) || isSelected ) && (
 					<RichText
 						tagName="figcaption"
+						className="wp-element-caption"
 						aria-label={ __( 'Video caption text' ) }
 						placeholder={ __( 'Add caption' ) }
 						value={ caption }

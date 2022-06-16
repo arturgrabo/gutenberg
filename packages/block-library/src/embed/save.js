@@ -27,7 +27,11 @@ export default function save( { attributes } ) {
 				{ `\n${ url }\n` /* URL needs to be on its own line. */ }
 			</div>
 			{ ! RichText.isEmpty( caption ) && (
-				<RichText.Content tagName="figcaption" value={ caption } />
+				<RichText.Content
+					className="wp-element-caption"
+					tagName="figcaption"
+					value={ caption }
+				/>
 			) }
 		</figure>
 	);

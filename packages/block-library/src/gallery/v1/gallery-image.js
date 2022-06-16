@@ -245,6 +245,7 @@ class GalleryImage extends Component {
 				{ ! isEditing && ( isSelected || caption ) && (
 					<RichText
 						tagName="figcaption"
+						className="wp-element-caption"
 						aria-label={ __( 'Image caption text' ) }
 						placeholder={ isSelected ? __( 'Add caption' ) : null }
 						value={ caption }
