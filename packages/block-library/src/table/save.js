@@ -11,6 +11,7 @@ import {
 	useBlockProps,
 	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
+	__experimentalGetElementClassName,
 } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
@@ -85,7 +86,7 @@ export default function save( { attributes } ) {
 				<RichText.Content
 					tagName="figcaption"
 					value={ caption }
-					className="wp-element-caption"
+					className={ __experimentalGetElementClassName( 'caption' ) }
 				/>
 			) }
 		</figure>
