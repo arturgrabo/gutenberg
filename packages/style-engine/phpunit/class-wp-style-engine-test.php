@@ -338,7 +338,7 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 						),
 					),
 				),
-				'options'         => array(),
+				'options'         => array( 'css_vars' => true ),
 				'expected_output' => array(
 					'css' => 'border-top-color: #fe1; border-top-width: 1.5rem; border-top-style: dashed; border-right-color: #fe2; border-right-width: 1.4rem; border-right-style: solid; border-bottom-color: #fe3; border-bottom-width: 1.3rem; border-left-color: var(--wp--preset--color--swampy-yellow); border-left-width: 0.5rem; border-left-style: dotted;',
 				),
@@ -368,7 +368,7 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 						),
 					),
 				),
-				'options'         => array(),
+				'options'         => array( 'css_vars' => true ),
 				'expected_output' => array(
 					'css' => 'border-bottom-color: var(--wp--preset--color--terrible-lizard);',
 				),

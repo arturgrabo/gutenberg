@@ -344,7 +344,7 @@ class WP_Style_Engine {
 			isset( $style_definition['value_func'] ) &&
 			is_callable( $style_definition['value_func'] )
 		) {
-			return call_user_func( $style_definition['value_func'], $style_value, $style_definition );
+			return call_user_func( $style_definition['value_func'], $style_value, $style_definition, $should_return_css_vars );
 		}
 
 		$style_properties = $style_definition['property_keys'];
@@ -467,12 +467,13 @@ class WP_Style_Engine {
 	 * "border-{top|right|bottom|left}-{color|width|style}: {value};" or,
 	 * "border-image-{outset|source|width|repeat|slice}: {value};"
 	 *
-	 * @param array $style_value                    A single raw Gutenberg style attributes value for a CSS property.
-	 * @param array $individual_property_definition A single style definition from BLOCK_STYLE_DEFINITIONS_METADATA.
+	 * @param array   $style_value                    A single raw Gutenberg style attributes value for a CSS property.
+	 * @param array   $individual_property_definition A single style definition from BLOCK_STYLE_DEFINITIONS_METADATA.
+	 * @param boolean $should_return_css_vars Whether to try to build and return CSS var values.
 	 *
 	 * @return array The class name for the added style.
 	 */
-	protected static function get_css_individual_property_rules( $style_value, $individual_property_definition ) {
+	protected static function get_css_individual_property_rules( $style_value, $individual_property_definition, $should_return_css_vars ) {
 		$rules = array();
 
 		if ( ! is_array( $style_value ) || empty( $style_value ) || empty( $individual_property_definition['path'] ) ) {
@@ -496,13 +497,8 @@ class WP_Style_Engine {
 
 			if ( $style_definition && isset( $style_definition['property_keys']['individual'] ) ) {
 				// Set a CSS var if there is a valid preset value.
-				$slug = isset( $individual_property_definition['css_vars'][ $css_property ] ) ? static::get_slug_from_preset_value( $value, $css_property ) : null;
-				if ( $slug ) {
-					$css_var = strtr(
-						$individual_property_definition['css_vars'][ $css_property ],
-						array( '$slug' => $slug )
-					);
-					$value   = "var($css_var)";
+				if ( is_string( $value ) && strpos( $value, 'var:' ) !== false && $should_return_css_vars && ! empty( $individual_property_definition['css_vars'] ) ) {
+					$value = static::get_css_var_value( $value, $individual_property_definition['css_vars'] );
 				}
 				$individual_css_property           = sprintf( $style_definition['property_keys']['individual'], $individual_property_key );
 				$rules[ $individual_css_property ] = $value;
