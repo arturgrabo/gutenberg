@@ -148,7 +148,7 @@ class WP_Style_Engine {
 					'individual' => 'padding-%s',
 				),
 				'path'          => array( 'spacing', 'padding' ),
-				'css_vars'   => array(
+				'css_vars'      => array(
 					'spacing' => '--wp--preset--spacing-size--$slug',
 				),
 			),
@@ -158,7 +158,7 @@ class WP_Style_Engine {
 					'individual' => 'margin-%s',
 				),
 				'path'          => array( 'spacing', 'margin' ),
-				'css_vars'   => array(
+				'css_vars'      => array(
 					'spacing' => '--wp--preset--spacing-size--$slug',
 				),
 			),

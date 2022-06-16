@@ -259,7 +259,7 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 				),
 			),
 
-			'valid_spacing_multi_preset_values'           => array(
+			'valid_spacing_multi_preset_values'            => array(
 				'block_styles'    => array(
 					'spacing' => array(
 						'margin'  => array(
@@ -282,10 +282,10 @@ class WP_Style_Engine_Test extends WP_UnitTestCase {
 				),
 			),
 
-			'invalid_spacing_multi_preset_values'           => array(
+			'invalid_spacing_multi_preset_values'          => array(
 				'block_styles'    => array(
 					'spacing' => array(
-						'margin'  => array(
+						'margin' => array(
 							'left'   => 'var:preset|spaceman|10',
 							'right'  => 'var:preset|spaceman|20',
 							'top'    => '1rem',
