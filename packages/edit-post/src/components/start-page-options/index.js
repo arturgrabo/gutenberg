@@ -19,11 +19,20 @@ import { store as editPostStore } from '../../store';
 
 function PatternSelection( { onChoosePattern } ) {
 	const { blockPatterns } = useSelect( ( select ) => {
-		const { __experimentalGetPatternsByBlockTypes } =
-			select( blockEditorStore );
+		const { __experimentalGetPatternsByBlockTypes } = select(
+			blockEditorStore
+		);
+		const { getCurrentPostType } = select( editorStore );
+		const postType = getCurrentPostType();
 		return {
-			blockPatterns:
-				__experimentalGetPatternsByBlockTypes( 'core/post-content' ),
+			blockPatterns: ( postType === 'page'
+				? __experimentalGetPatternsByBlockTypes( 'core/post-content' )
+				: []
+			).concat(
+				__experimentalGetPatternsByBlockTypes(
+					`core/post-content/${ postType }`
+				)
+			),
 		};
 	}, [] );
 	const shownBlockPatterns = useAsyncList( blockPatterns );
@@ -55,23 +64,29 @@ export default function StartPageOptions() {
 			if ( modalState !== START_PAGE_MODAL_STATES.INITIAL ) {
 				return false;
 			}
-			const { __experimentalGetPatternsByBlockTypes } =
-				select( blockEditorStore );
+			const { __experimentalGetPatternsByBlockTypes } = select(
+				blockEditorStore
+			);
 			const {
 				getCurrentPostType,
 				getEditedPostContent,
 				isEditedPostSaveable,
 			} = select( editorStore );
-			const { isEditingTemplate, isFeatureActive } =
-				select( editPostStore );
+			const { isEditingTemplate, isFeatureActive } = select(
+				editPostStore
+			);
+			const postType = getCurrentPostType();
 			return (
-				getCurrentPostType() === 'page' &&
 				! isEditedPostSaveable() &&
 				'' === getEditedPostContent() &&
 				! isEditingTemplate() &&
 				! isFeatureActive( 'welcomeGuide' ) &&
-				__experimentalGetPatternsByBlockTypes( 'core/post-content' )
-					.length >= 1
+				( ( postType === 'page' &&
+					__experimentalGetPatternsByBlockTypes( 'core/post-content' )
+						.length >= 1 ) ||
+					__experimentalGetPatternsByBlockTypes(
+						`core/post-content/${ postType }`
+					).length >= 1 )
 			);
 		},
 		[ modalState ]
