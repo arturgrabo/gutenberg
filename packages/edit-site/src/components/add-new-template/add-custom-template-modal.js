@@ -47,7 +47,7 @@ function SuggestionListItem( {
 			{ ...composite }
 			className={ baseCssClass }
 			onClick={ () => {
-				const title = `${ entityForSuggestions.labels.singular }: ${ suggestion.name }`;
+				const title = `${ entityForSuggestions.labels.singular_name }: ${ suggestion.name }`;
 				onSelect( {
 					title,
 					description: `Template for ${ title }`,
@@ -147,7 +147,7 @@ function AddCustomTemplateModal( { onClose, onSelect, entityForSuggestions } ) {
 			title={ sprintf(
 				// translators: %s: Name of the post type e.g: "Post".
 				__( 'Add %s template' ),
-				entityForSuggestions.labels.singular
+				entityForSuggestions.labels.singular_name
 			) }
 			className={ baseCssClass }
 			closeLabel={ __( 'Close' ) }
@@ -176,9 +176,9 @@ function AddCustomTemplateModal( { onClose, onSelect, entityForSuggestions } ) {
 							<Heading level={ 5 }>{ __( 'General' ) }</Heading>
 							<Text as="span">
 								{ sprintf(
-									// translators: %s: Name of the post type in plural e.g: "Posts".
-									__( 'Design a template for all %s.' ),
-									entityForSuggestions.labels.plural
+									// translators: %s: `all_items` label of a post type or taxonomy e.g: "All Categories", "All Posts".
+									__( 'Design a template for %s.' ),
+									entityForSuggestions.labels.all_items
 								) }
 							</Text>
 						</FlexItem>
@@ -193,9 +193,9 @@ function AddCustomTemplateModal( { onClose, onSelect, entityForSuggestions } ) {
 								{ sprintf(
 									// translators: %s: Name of the post type e.g: "Post".
 									__(
-										'Design a template for a specific %s.'
+										'Design a template for a specific item: %s.'
 									),
-									entityForSuggestions.labels.singular
+									entityForSuggestions.labels.singular_name
 								) }
 							</Text>
 						</FlexItem>
@@ -206,11 +206,9 @@ function AddCustomTemplateModal( { onClose, onSelect, entityForSuggestions } ) {
 				<>
 					<p>
 						{ sprintf(
-							// translators: %s: Name of the post type e.g: "Post".
-							__(
-								'Select the %s you would like to design a template for.'
-							),
-							entityForSuggestions.labels.singular
+							// translators: %s: `search_items` label of a post type or taxonomy e.g: "Search Categories", "Search Posts".
+							__( '%s to design a specific template.' ),
+							entityForSuggestions.labels.search_items
 						) }
 					</p>
 					<SuggestionList
